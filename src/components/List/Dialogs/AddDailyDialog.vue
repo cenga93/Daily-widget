@@ -1,7 +1,7 @@
 <template>
   <v-dialog :value="true" persistent max-width="600" max-height="100">
     <v-form ref="form" lazy-validation class="pa-5 form">
-      <v-text-field v-model="tasks" label="tasks" required></v-text-field>
+      <v-text-field v-model="tasks" label="Enter new Daily" required @keyup.enter="addDaily"></v-text-field>
 
       <!-- <v-text-field v-model="email" :rules="emailRules" label="E-mail" required></v-text-field> -->
 
@@ -14,8 +14,11 @@
         required
       ></v-checkbox> -->
 
-      <v-btn :disabled="!tasks" color="success" class="mr-4" @click="addDaily">
-        Validate
+      <v-btn :disabled="!tasks" color="primary" class="mr-4" @click="addDaily">
+        Save
+      </v-btn>
+      <v-btn color="secondary" class="mr-4" @click="$emit('close')">
+        Cancel
       </v-btn>
     </v-form>
   </v-dialog>
