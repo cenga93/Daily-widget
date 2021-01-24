@@ -1,6 +1,6 @@
 <template>
   <v-app id="inspire">
-    <!-- start::NAV DRAVER -->
+    <!-- start::NAV DRAVERr -->
     <v-navigation-drawer v-model="drawer" app>
       <v-list-item>
         <v-list-item-content>
