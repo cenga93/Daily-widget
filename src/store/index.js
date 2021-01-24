@@ -5,17 +5,42 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    daily: [],
+    drawer: null,
+    navItems: [
+      { title: 'Home', icon: 'mdi-home', to: '/' },
+      { title: 'About', icon: 'mdi-information', to: '/about' },
+    ],
     snackbar: {
       show: false,
       text: '',
     },
+    daily: [
+      {
+        id: 1,
+        action: 'mdi-ticket',
+        items: [{ title: 'List Item' }],
+        title: 'prvo',
+      },
+      {
+        id: 2,
+        action: 'mdi-ticket',
+        items: [{ title: 'List Item' }],
+        title: 'drugo',
+      },
+      {
+        id: 3,
+        action: 'mdi-ticket',
+        items: [{ title: 'List Item' }],
+        title: 'trece',
+      },
+    ],
   },
   mutations: {
     addDaily(state, payload) {
       let newDaily = {
         id: Date.now(),
         tasks: payload.tasks,
+        date: payload.date,
         hours: 8,
         blocker: payload.blocker,
         plan: payload.plan,
@@ -25,6 +50,10 @@ export default new Vuex.Store({
 
     hideSnackBar(state) {
       state.snackbar.show = false;
+    },
+
+    hideDrawer(state) {
+      state.drawer = !state.drawer;
     },
 
     showSnackBar(state, text) {

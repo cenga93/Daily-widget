@@ -3,11 +3,32 @@
     <v-form ref="form" lazy-validation class="pa-5 form">
       <v-text-field v-model="tasks" label="Enter new Daily" required @keyup.enter="addDaily"></v-text-field>
 
+      <v-dialog ref="dialog" v-model="dataModal" :return-value.sync="date" persistent width="320">
+        <template v-slot:activator="{ on, attrs }">
+          <v-text-field
+            v-model="date"
+            label="Picker in dialog"
+            prepend-icon="mdi-calendar"
+            readonly
+            v-bind="attrs"
+            v-on="on"
+          ></v-text-field>
+        </template>
+        <v-date-picker v-model="date" scrollable>
+          <v-spacer></v-spacer>
+          <v-btn text color="primary" @click="modal = false">
+            Cancel
+          </v-btn>
+          <v-btn text color="primary" @click="$refs.dialog.save(date)">
+            OK
+          </v-btn>
+        </v-date-picker>
+      </v-dialog>
       <!-- <v-text-field v-model="email" :rules="emailRules" label="E-mail" required></v-text-field> -->
 
       <!-- <v-select v-model="select" :items="items" :rules="[(v) => !!v || 'Item is required']" label="Item" required></v-select> -->
 
-      <!-- <v-checkbox
+      <!-- <v-checkbox 
         v-model="checkbox"
         :rules="[(v) => !!v || 'You must agree to continue!']"
         label="Do you agree?"
@@ -28,7 +49,10 @@
 export default {
   name: 'AddDailyDialog',
   data: () => ({
+    dataModal: false,
+    menu1: false,
     tasks: '',
+    date: new Date().toISOString().substr(0, 10),
   }),
   computed: {
     taskValidation() {
@@ -58,9 +82,11 @@ export default {
             },
           ],
           hours: 6,
+          date: this.date,
         };
         this.$store.dispatch('addDaily', payload);
         this.$emit('close');
+        console.log(this.date);
       }
     },
   },
@@ -70,5 +96,11 @@ export default {
 <style scoped>
 .form {
   background: #fff;
+}
+
+.v-menu__content {
+  top: 50%;
+  left: 50% !important;
+  transform: translate(-50%, -50%);
 }
 </style>

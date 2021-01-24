@@ -1,24 +1,28 @@
 <template>
   <div class="home">
-    <v-btn color="primary" class="ma-2" @click="dialog = true">Add Daily</v-btn>
-    <ListItem v-if="$store.state.daily.length" />
+    <v-card class="mx-auto slots pa-3">
+      <!-- TOOLBAR [component] -->
+      <ToolBar @showToolBar="$store.state.dialog = true" />
 
-    <!-- DIALOG ADD DAILY [cmoponent] -->
-    <AddDailyDialog v-if="dialog" @close="dialog = false" />
+      <!-- LIST ITEMS [component] -->
+      <ItemsList v-if="$store.state.daily.length" />
+    </v-card>
+
+    <!-- DIALOG ADD DAILY [component] -->
+    <AddDailyDialog v-if="$store.state.dialog" @close="dialog = false" />
   </div>
 </template>
 
 <script>
-import ListItem from '@/components/List/ListItems';
-import AddDailyDialog from '../components/List/Dialogs/AddDailyDialog';
+import { ItemsList, AddDailyDialog, ToolBar } from '@/components';
 
 export default {
-  name: 'Home',
-  data() {
-    return {
-      dialog: false,
-    };
-  },
-  components: { ListItem, AddDailyDialog },
+  components: { ItemsList, AddDailyDialog, ToolBar },
 };
 </script>
+
+<style lang="css" scoped>
+.slots {
+  min-height: 93vh;
+}
+</style>
