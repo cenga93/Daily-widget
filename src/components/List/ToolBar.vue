@@ -1,5 +1,5 @@
 <template>
-  <v-toolbar color="primary">
+  <v-toolbar color="indigo">
     <v-tooltip right color="white">
       <template v-slot:activator="{ on, attrs }">
         <v-btn fab small @click="$emit('showToolBar')" v-bind="attrs" v-on="on">

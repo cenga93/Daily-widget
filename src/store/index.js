@@ -5,6 +5,7 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
+    dialog: false,
     drawer: null,
     navItems: [
       { title: 'Home', icon: 'mdi-home', to: '/' },
@@ -15,37 +16,28 @@ export default new Vuex.Store({
       text: '',
     },
     daily: [
-      {
-        id: 1,
-        action: 'mdi-ticket',
-        items: [{ title: 'List Item' }],
-        title: 'prvo',
-      },
-      {
-        id: 2,
-        action: 'mdi-ticket',
-        items: [{ title: 'List Item' }],
-        title: 'drugo',
-      },
-      {
-        id: 3,
-        action: 'mdi-ticket',
-        items: [{ title: 'List Item' }],
-        title: 'trece',
-      },
+      // {
+      //   id: 1,
+      //   action: 'mdi-calendar',
+      //   items: [{ title: 'List Item' }],
+      //   title: 'prvo',
+      // },
     ],
   },
   mutations: {
     addDaily(state, payload) {
-      let newDaily = {
-        id: Date.now(),
-        tasks: payload.tasks,
-        date: payload.date,
-        hours: 8,
-        blocker: payload.blocker,
-        plan: payload.plan,
-      };
-      state.daily.push(newDaily);
+      //  New daily object contructor
+      class NewDaily {
+        constructor(payload) {
+          this.obj = payload;
+        }
+      }
+
+      //create new daily
+      const newDaily = new NewDaily(payload);
+
+      // save new daily
+      state.daily.push(newDaily.obj);
     },
 
     hideSnackBar(state) {
@@ -66,6 +58,10 @@ export default new Vuex.Store({
         state.snackbar.show = true;
         state.snackbar.text = text;
       }, timeout);
+    },
+
+    showToolBar(state) {
+      state.dialog = true;
     },
   },
   actions: {

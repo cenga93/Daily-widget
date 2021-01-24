@@ -6,10 +6,12 @@
 
       <!-- LIST ITEMS [component] -->
       <ItemsList v-if="$store.state.daily.length" />
+
+      <h1 v-else>Nema nista</h1>
     </v-card>
 
     <!-- DIALOG ADD DAILY [component] -->
-    <AddDailyDialog v-if="$store.state.dialog" @close="dialog = false" />
+    <AddDailyDialog v-if="$store.state.dialog" @close="$store.state.dialog = false" />
   </div>
 </template>
 
