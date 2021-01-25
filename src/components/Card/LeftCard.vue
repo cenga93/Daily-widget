@@ -1,6 +1,7 @@
 <template>
-  <v-card>
-    <v-img height="200px" src="https://cdn.pixabay.com/photo/2020/07/12/07/47/bee-5396362_1280.jpg">
+  <v-card min-height="500">
+    <!-- IMAGE CARD -->
+    <v-img height="200px" src="bg-card.jpg">
       <v-app-bar flat color="rgba(0, 0, 0, 0)" class="d-flex justify-space-between">
         <v-list-item-content class="title white--text pl-0">
           <v-list-item-title class="headline">
@@ -18,33 +19,46 @@
     <v-list dense class="px-2 mb-1">
       <div class="d-flex justify-space-between px-2">
         <v-subheader>DONE</v-subheader>
-        <v-subheader
-          ><v-btn class="ma-2" small outlined color="indigo">
-            Add Task
-          </v-btn></v-subheader
-        >
+        <v-subheader>
+          <v-btn class="ma-2" outlined x-small fab dark color="indigo" @click="addTask(item)">
+            <v-icon dark>
+              mdi-plus
+            </v-icon>
+          </v-btn>
+        </v-subheader>
       </div>
-      <div v-for="(item, i) in tasks" :key="i">
+      <div v-if="item.tasks.length">
+        <div v-for="(item, i) in item.tasks" :key="i">
+          <v-list-item>
+            <template>
+              <v-list-item-action class="mr-1 my-2">
+                <v-checkbox :input-value="item.done"></v-checkbox>
+              </v-list-item-action>
+
+              <v-list-item-content>
+                <v-list-item-title>{{ item.title }}</v-list-item-title>
+              </v-list-item-content>
+
+              <v-list-item-action class="ma-0">
+                <v-btn class="mx-2" fab text dark x-small color="indigo">
+                  <v-icon dark>
+                    mdi-dots-vertical
+                  </v-icon>
+                </v-btn>
+              </v-list-item-action>
+            </template>
+          </v-list-item>
+          <v-divider></v-divider>
+        </div>
+      </div>
+      <div v-else>
         <v-list-item>
           <template>
-            <v-list-item-action>
-              <v-checkbox :input-value="active"></v-checkbox>
-            </v-list-item-action>
-
             <v-list-item-content>
-              <v-list-item-title>Auto-add widgets</v-list-item-title>
+              <v-list-item-title>Not found tasks...</v-list-item-title>
             </v-list-item-content>
-
-            <v-list-item-action class="ma-0">
-              <v-btn class="mx-2" fab text dark x-small color="primary">
-                <v-icon dark>
-                  mdi-pencil
-                </v-icon>
-              </v-btn>
-            </v-list-item-action>
           </template>
         </v-list-item>
-        <v-divider></v-divider>
       </div>
     </v-list>
 
@@ -52,17 +66,19 @@
     <v-list dense class="px-2 mb-1">
       <div class="d-flex justify-space-between px-2">
         <v-subheader>PLAN</v-subheader>
-        <v-subheader
-          ><v-btn class="ma-2" small outlined color="indigo">
-            Add Plan
-          </v-btn></v-subheader
-        >
+        <v-subheader>
+          <v-btn class="ma-2" outlined x-small fab dark color="indigo">
+            <v-icon dark>
+              mdi-plus
+            </v-icon>
+          </v-btn>
+        </v-subheader>
       </div>
       <div>
         <v-list-item>
           <template>
-            <v-list-item-action>
-              <v-checkbox :input-value="active"></v-checkbox>
+            <v-list-item-action class="mr-1 my-2">
+              <v-checkbox></v-checkbox>
             </v-list-item-action>
 
             <v-list-item-content>
@@ -70,7 +86,7 @@
             </v-list-item-content>
 
             <v-list-item-action class="ma-0">
-              <v-btn class="mx-2" fab text dark x-small color="primary">
+              <v-btn class="mx-2" fab text dark x-small color="indigo">
                 <v-icon dark>
                   mdi-pencil
                 </v-icon>
@@ -87,16 +103,18 @@
       <div class="d-flex justify-space-between px-2">
         <v-subheader>BLOCKER</v-subheader>
         <v-subheader
-          ><v-btn class="ma-2" small outlined color="indigo">
-            Add Blocker
+          ><v-btn class="ma-2" outlined x-small fab dark color="indigo">
+            <v-icon dark>
+              mdi-plus
+            </v-icon>
           </v-btn></v-subheader
         >
       </div>
       <div>
         <v-list-item>
           <template>
-            <v-list-item-action>
-              <v-checkbox :input-value="active"></v-checkbox>
+            <v-list-item-action class="mr-1 my-2">
+              <v-checkbox></v-checkbox>
             </v-list-item-action>
 
             <v-list-item-content>
@@ -104,7 +122,7 @@
             </v-list-item-content>
 
             <v-list-item-action class="ma-0">
-              <v-btn class="mx-2" fab text dark x-small color="primary">
+              <v-btn class="mx-2" fab text dark x-small color="indigo">
                 <v-icon dark>
                   mdi-pencil
                 </v-icon>
@@ -120,15 +138,12 @@
 
 <script>
 export default {
-  props: ['item', 'messages'],
-  data: () => ({
-    selectedItem: 1,
-    tasks: [
-      { text: 'Real-Time', icon: 'mdi-clock' },
-      { text: 'Audience', icon: 'mdi-account' },
-      { text: 'Conversions', icon: 'mdi-flag' },
-    ],
-    plans: [{ text: 'Real-Time', icon: 'mdi-clock' }],
-  }),
+  props: ['item'],
+  methods: {
+    addTask(item) {
+      this.$store.state.itemSelected = item;
+      this.$store.state.dialogs.tasks = true;
+    },
+  },
 };
 </script>

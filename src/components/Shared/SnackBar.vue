@@ -14,5 +14,3 @@ export default {
   name: 'SnackBar',
 };
 </script>
-
-<style></style>

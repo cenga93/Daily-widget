@@ -1,22 +1,24 @@
 <template>
   <div class="home">
     <v-card class="mx-auto slots pa-3">
-      <!-- TOOLBAR [component] -->
-      <ToolBar @showToolBar="$store.state.dialog = true" />
+      <!-- TOOLBAR / ADD DAILY [component] -->
+      <ToolBar @showToolBar="$store.state.dialogs.daily = true" />
 
       <!-- LIST ITEMS [component] -->
       <ItemsList v-if="$store.state.daily.length" />
 
-      <h1 v-else>Nema nista</h1>
+      <h1 v-else>not found daily...</h1>
     </v-card>
 
     <!-- DIALOG ADD DAILY [component] -->
-    <AddDailyDialog v-if="$store.state.dialog" @close="$store.state.dialog = false" />
+    <AddDailyDialog v-if="$store.state.dialogs.daily" @close="$store.state.dialogs.daily = false" />
   </div>
 </template>
 
 <script>
-import { ItemsList, AddDailyDialog, ToolBar } from '@/components';
+import ItemsList from '@/components/List/ItemsList';
+import AddDailyDialog from '@/components/List/Dialogs/AddDailyDialog';
+import ToolBar from '@/components/List/ToolBar';
 
 export default {
   components: { ItemsList, AddDailyDialog, ToolBar },

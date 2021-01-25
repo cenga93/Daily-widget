@@ -15,7 +15,9 @@
 </template>
 
 <script>
-import { SnackBar, NavDrawer, NavApp } from '@/components';
+import SnackBar from '@/components/Shared/SnackBar';
+import NavDrawer from '@/components/Nav/NavDrawer';
+import NavApp from '@/components/Nav/NavApp';
 
 export default {
   components: { SnackBar, NavDrawer, NavApp },

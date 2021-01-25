@@ -1,23 +1,19 @@
 <template>
-  <v-list>
-    <v-list-group v-for="item in $store.state.daily" :key="item.id" :prepend-icon="item.action" no-action :item="item">
-      <template v-slot:activator>
-        <v-list-item-content>
-          <v-list-item-title v-text="item.date"></v-list-item-title>
-          <v-list-item-subtitle v-text="item"></v-list-item-subtitle>
-        </v-list-item-content>
-      </template>
+  <v-list flat>
+    <!-- LIST GROUP [component] -->
+    <ListGroup v-for="item in $store.state.daily" :key="item.id" :item="item" />
 
-      <!-- CARD CONTAINER [component] -->
-      <CardContainer :item="item" />
-    </v-list-group>
+    <!-- DIALOG ADD TASKS [component] -->
+    <AddDailyTasks v-if="$store.state.dialogs.tasks" @close="$store.state.dialogs.tasks = false" />
   </v-list>
 </template>
 
 <script>
-import CardContainer from '../../components/Card/CardContainer';
+import CardContainer from '@/components/Card/CardContainer';
+import ListGroup from '@/components/List/ListGroup';
+import AddDailyTasks from '@/components/List/Dialogs/AddDailyTasks';
 
 export default {
-  components: { CardContainer },
+  components: { CardContainer, ListGroup, AddDailyTasks },
 };
 </script>

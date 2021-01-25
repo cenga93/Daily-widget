@@ -1,11 +1,15 @@
 import Vue from 'vue';
-import Vuex from 'vuex';
+import Vuex, { Store } from 'vuex';
 
 Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    dialog: false,
+    dialogs: {
+      daily: false,
+      tasks: false,
+    },
+    itemSelected: null,
     drawer: null,
     navItems: [
       { title: 'Home', icon: 'mdi-home', to: '/' },
@@ -15,14 +19,7 @@ export default new Vuex.Store({
       show: false,
       text: '',
     },
-    daily: [
-      // {
-      //   id: 1,
-      //   action: 'mdi-calendar',
-      //   items: [{ title: 'List Item' }],
-      //   title: 'prvo',
-      // },
-    ],
+    daily: [],
   },
   mutations: {
     addDaily(state, payload) {
@@ -35,9 +32,21 @@ export default new Vuex.Store({
 
       //create new daily
       const newDaily = new NewDaily(payload);
+      console.log('New daily', newDaily.obj);
 
       // save new daily
       state.daily.push(newDaily.obj);
+    },
+
+    addTask(state, payload) {
+      let daily = state.daily.filter((daily) => daily.id == state.itemSelected.id)[0];
+      console.log('daily ID', daily.id);
+
+      daily.tasks.push({
+        id: daily.id,
+        title: payload,
+        done: false,
+      });
     },
 
     hideSnackBar(state) {
@@ -61,13 +70,22 @@ export default new Vuex.Store({
     },
 
     showToolBar(state) {
-      state.dialog = true;
+      state.dialogs.daily = true;
+    },
+
+    showAddTaskDialog(state) {
+      state.dialogs.tasks = true;
     },
   },
   actions: {
     addDaily({ commit }, payload) {
       commit('addDaily', payload);
       commit('showSnackBar', 'Daily added success');
+    },
+
+    addTask({ commit }, payload) {
+      commit('addTask', payload);
+      commit('showSnackBar', `Succes added task`);
     },
   },
   modules: {},
