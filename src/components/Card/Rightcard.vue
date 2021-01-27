@@ -1,5 +1,5 @@
 <template>
-  <v-card min-height="500">
+  <v-card min-height="">
     <v-card-text>
       <div class="font-weight-bold ml-8 mb-2">
         Today

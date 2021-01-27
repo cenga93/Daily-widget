@@ -5,21 +5,32 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    dialogs: {
-      daily: false,
-      tasks: false,
-    },
-    itemSelected: null,
-    drawer: null,
     navItems: [
       { title: 'Home', icon: 'mdi-home', to: '/' },
       { title: 'About', icon: 'mdi-information', to: '/about' },
     ],
+    daily: [],
+    // ------------------------------
+    dialogs: {
+      daily: false,
+      // -------------------
+      works: false,
+      plan_blocker: false,
+      add_workday: false,
+      add_time: false,
+    },
+    workday: ['Radni dan', 'Vikend', 'Praznik', 'Bolovanje'],
+    selPlanBlocker: null,
+    planBlockData: {},
+    // isEdit: {},
+    // dailyID: '',
+    itemSelected: {},
+    drawer: null,
+
     snackbar: {
       show: false,
       text: '',
     },
-    daily: [],
   },
   mutations: {
     addDaily(state, payload) {
@@ -32,21 +43,99 @@ export default new Vuex.Store({
 
       //create new daily
       const newDaily = new NewDaily(payload);
-      console.log('New daily', newDaily.obj);
 
       // save new daily
       state.daily.push(newDaily.obj);
+
+      console.log('New daily is added');
     },
 
-    addTask(state, payload) {
+    addWork(state, payload) {
       let daily = state.daily.filter((daily) => daily.id == state.itemSelected.id)[0];
-      console.log('daily ID', daily.id);
+      // console.log('daily ID', daily.id);
 
-      daily.tasks.push({
+      daily.works.push({
         id: daily.id,
         title: payload,
         done: false,
       });
+    },
+
+    itemSelected(state, payload) {
+      state.itemSelected = payload;
+    },
+
+    addPlanBlocker(state, payload) {
+      let daily = state.daily.filter((daily) => daily.id == state.itemSelected.id)[0];
+
+      switch (state.selPlanBlocker) {
+        case 'plan':
+          daily.plans.push(payload);
+          break;
+        case 'blockers':
+          daily.blockers.push(payload);
+          break;
+        default:
+          return;
+      }
+      state.selPlanBlocker = null;
+    },
+
+    editPlanBlocker(state, { markdown, compiled, id }) {
+      // filter select daily
+      let daily = state.daily.filter((daily) => daily.id == state.itemSelected.id)[0];
+      let selectedPlanBlock;
+
+      switch (state.selPlanBlocker) {
+        // update plan
+        case 'plan':
+          selectedPlanBlock = daily.plans.filter((plan) => plan.id == id)[0];
+
+          selectedPlanBlock.markdown = markdown;
+          selectedPlanBlock.compiled = compiled;
+          state.selPlanBlocker = null;
+          break;
+        // update blockers
+
+        case 'blockers':
+          selectedPlanBlock = daily.blockers.filter((plan) => plan.id == id)[0];
+
+          selectedPlanBlock.markdown = markdown;
+          selectedPlanBlock.compiled = compiled;
+          state.selPlanBlocker = null;
+          break;
+        default:
+          return;
+      }
+    },
+
+    deletePlanBlocker(state, payload) {
+      let daily = state.daily.filter((daily) => daily.id == state.itemSelected.id)[0];
+
+      switch (state.selPlanBlocker) {
+        case 'plan':
+          daily.plans = daily.plans.filter((plan) => plan.id != payload);
+          break;
+        case 'blockers':
+          daily.blockers = daily.blockers.filter((plan) => plan.id != payload);
+          break;
+        default:
+          return;
+      }
+      state.selPlanBlocker = null;
+    },
+
+    addWorkday(state, payload) {
+      let daily = state.daily.filter((daily) => daily.id == state.itemSelected.id)[0];
+      daily.workday = payload;
+      console.log('success added workday in selected daily');
+    },
+
+    addTime(state, payload) {
+      let daily = state.daily.filter((daily) => daily.id == state.itemSelected.id)[0];
+      daily.time = payload;
+
+      console.log('success added time');
     },
 
     hideSnackBar(state) {
@@ -58,6 +147,7 @@ export default new Vuex.Store({
     },
 
     showSnackBar(state, text) {
+      console.log(text.text1);
       let timeout = 0;
       if (state.snackbar.show) {
         state.snackbar.show = false;
@@ -78,14 +168,40 @@ export default new Vuex.Store({
     },
   },
   actions: {
+    // provereno
     addDaily({ commit }, payload) {
       commit('addDaily', payload);
       commit('showSnackBar', 'Daily added success');
     },
 
-    addTask({ commit }, payload) {
-      commit('addTask', payload);
+    addWork({ commit }, payload) {
+      commit('addWork', payload);
       commit('showSnackBar', `Succes added task`);
+    },
+
+    addPlanBlocker({ commit }, payload) {
+      commit('addPlanBlocker', payload);
+      commit('showSnackBar', 'Succes add plan/blockers', 'ASDASD');
+    },
+
+    editPlanBlocker({ commit }, payload) {
+      commit('editPlanBlocker', payload);
+      commit('showSnackBar', {
+        text1: 'Success',
+        text2: 'Test',
+      });
+    },
+
+    deletePlanBlocker({ commit }, payload) {
+      commit('deletePlanBlocker', payload);
+    },
+
+    addWorkday({ commit }, payload) {
+      commit('addWorkday', payload);
+    },
+
+    addTime({ commit }, payload) {
+      commit('addTime', payload);
     },
   },
   modules: {},

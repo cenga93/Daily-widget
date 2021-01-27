@@ -3,6 +3,7 @@
     <v-container class="">
       <v-row>
         <v-col cols="12" sm="6" md="4">
+          <!-- <LeftCard /> -->
           <LeftCard :item="item" />
         </v-col>
         <v-col cols="12" sm="6" md="8">
@@ -20,7 +21,6 @@ import RightCard from '@/components/Card/Rightcard';
 export default {
   components: { LeftCard, RightCard },
   props: ['item'],
-  name: 'CardContainer',
 };
 </script>
 
