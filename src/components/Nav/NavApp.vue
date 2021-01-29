@@ -4,6 +4,6 @@
       <v-img v-bind="props" gradient="to top right, rgba(19,84,122,.2), rgba(128,208,199,.3)"></v-img>
     </template>
 
-    <v-app-bar-nav-icon @click="$store.commit('hideDrawer')"></v-app-bar-nav-icon>
+    <v-app-bar-nav-icon @click="$store.commit('hideDrawer')" class="ml-0"></v-app-bar-nav-icon>
   </v-app-bar>
 </template>

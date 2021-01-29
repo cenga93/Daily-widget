@@ -29,7 +29,7 @@ export default new Vuex.Store({
 
     snackbar: {
       show: false,
-      text: '',
+      data: {},
     },
   },
   mutations: {
@@ -46,19 +46,11 @@ export default new Vuex.Store({
 
       // save new daily
       state.daily.push(newDaily.obj);
-
-      console.log('New daily is added');
     },
 
     addWork(state, payload) {
       let daily = state.daily.filter((daily) => daily.id == state.itemSelected.id)[0];
-      // console.log('daily ID', daily.id);
-
-      daily.works.push({
-        id: daily.id,
-        title: payload,
-        done: false,
-      });
+      daily.works.push(payload);
     },
 
     itemSelected(state, payload) {
@@ -128,14 +120,11 @@ export default new Vuex.Store({
     addWorkday(state, payload) {
       let daily = state.daily.filter((daily) => daily.id == state.itemSelected.id)[0];
       daily.workday = payload;
-      console.log('success added workday in selected daily');
     },
 
     addTime(state, payload) {
       let daily = state.daily.filter((daily) => daily.id == state.itemSelected.id)[0];
       daily.time = payload;
-
-      console.log('success added time');
     },
 
     hideSnackBar(state) {
@@ -146,16 +135,15 @@ export default new Vuex.Store({
       state.drawer = !state.drawer;
     },
 
-    showSnackBar(state, text) {
-      console.log(text.text1);
+    showSnackBar(state, data) {
       let timeout = 0;
       if (state.snackbar.show) {
         state.snackbar.show = false;
-        timeout = 300;
+        timeout = 200;
       }
       setTimeout(() => {
         state.snackbar.show = true;
-        state.snackbar.text = text;
+        state.snackbar.data = data;
       }, timeout);
     },
 
@@ -168,40 +156,60 @@ export default new Vuex.Store({
     },
   },
   actions: {
-    // provereno
     addDaily({ commit }, payload) {
       commit('addDaily', payload);
-      commit('showSnackBar', 'Daily added success');
+      commit('showSnackBar', {
+        text: 'Success add new Daily',
+        color: 'success',
+      });
     },
 
     addWork({ commit }, payload) {
       commit('addWork', payload);
-      commit('showSnackBar', `Succes added task`);
+      commit('showSnackBar', {
+        text: 'Success add work',
+        color: 'success',
+      });
     },
 
     addPlanBlocker({ commit }, payload) {
       commit('addPlanBlocker', payload);
-      commit('showSnackBar', 'Succes add plan/blockers', 'ASDASD');
+      commit('showSnackBar', {
+        text: 'Success add plan/blockers',
+        color: 'success',
+      });
     },
 
     editPlanBlocker({ commit }, payload) {
       commit('editPlanBlocker', payload);
       commit('showSnackBar', {
-        text1: 'Success',
-        text2: 'Test',
+        text: 'Success edit plan/blockers',
+        color: 'success',
       });
     },
 
     deletePlanBlocker({ commit }, payload) {
       commit('deletePlanBlocker', payload);
+      commit('showSnackBar', {
+        text: 'Success deleted plan/blockers',
+        color: 'red',
+      });
     },
 
     addWorkday({ commit }, payload) {
       commit('addWorkday', payload);
+      commit('showSnackBar', {
+        text: 'Success add workday',
+        color: 'success',
+      });
     },
 
     addTime({ commit }, payload) {
       commit('addTime', payload);
+      commit('showSnackBar', {
+        text: 'Success add time',
+        color: 'success',
+      });
     },
   },
   modules: {},

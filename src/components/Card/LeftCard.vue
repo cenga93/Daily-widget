@@ -1,25 +1,27 @@
 <template>
   <v-card>
     <!-- CARD TOP -- IMAGES -->
-    <v-img height="180px" src="bg-card.jpg">
+    <v-img height="160px" src="Background.png">
       <v-app-bar flat color="rgba(0, 0, 0, 0)">
-        <v-toolbar-title class="title white--text pl-0 d-flex">
-          <v-icon color="white " class="mr-2">
+        <v-toolbar-title class="title white--text d-flex date">
+          <v-icon color="white" class="mr-1">
             mdi-calendar
           </v-icon>
-          {{ item.date }}
+          <span>
+            {{ item.date }}
+          </span>
         </v-toolbar-title>
         <v-spacer></v-spacer>
-        <v-toolbar-title class="title white--text mr-3 d-flex align-center">
-          <div class="mr-3" v-if="item.workday">
+        <v-toolbar-title class="title white--text  d-flex align-center workday">
+          <div v-if="item.workday">
             {{ item.workday }}
           </div>
-          <div v-else>
-            <small>
+          <template v-else>
+            <span>
               Add workday
-            </small>
-          </div>
-          <v-btn text icon x-small color="white" class="pa-2" @click="$store.state.dialogs.add_workday = true">
+            </span>
+          </template>
+          <v-btn text icon x-small color="white" class="ml-1" @click="$store.state.dialogs.add_workday = true">
             <v-icon>mdi-pencil</v-icon>
           </v-btn>
         </v-toolbar-title>
@@ -32,8 +34,8 @@
 
         <v-spacer></v-spacer>
 
-        <div class="d-flex mr-2">
-          <v-btn class="mx-2" color="white" fab text dark x-small @click="$store.state.dialogs.add_time = true">
+        <div class="d-flex">
+          <v-btn color="white" fab text dark x-small @click="$store.state.dialogs.add_time = true">
             <v-icon dark>
               mdi-clock-time-eight-outline
             </v-icon>
@@ -42,23 +44,23 @@
       </v-card-title>
     </v-img>
 
-    <!-- start::DONE LIST  ********************************************************* TREBA DA SE RESI -->
+    <!-- start::DONE LIST  ******************************************************** TREBA DA SE RESI -->
     <v-list dense class="px-2 mb-1">
-      <div class="d-flex justify-space-between px-2">
+      <div class="d-flex justify-space-between">
         <v-subheader>DONE</v-subheader>
         <v-subheader>
-          <v-btn class="ma-2" outlined x-small fab dark color="indigo" @click="addWork()">
+          <v-btn class="" outlined x-small fab dark color="indigo" @click="addWork()">
             <v-icon dark>
               mdi-plus
             </v-icon>
           </v-btn>
         </v-subheader>
       </div>
-      <div v-if="item.works.length">
+      <template v-if="item.works.length">
         <div v-for="(item, i) in item.works" :key="i">
-          <v-list-item>
+          <v-list-item class="px-2">
             <template>
-              <v-list-item-action class="mr-1 my-2">
+              <v-list-item-action class="my-1">
                 <v-checkbox :input-value="item.done"></v-checkbox>
               </v-list-item-action>
 
@@ -66,8 +68,8 @@
                 <v-list-item-title>{{ item.title }}</v-list-item-title>
               </v-list-item-content>
 
-              <v-list-item-action class="ma-0">
-                <v-btn class="mx-2" fab text dark x-small color="indigo">
+              <v-list-item-action class="my-1">
+                <v-btn fab text dark x-small color="indigo">
                   <v-icon dark>
                     mdi-dots-vertical
                   </v-icon>
@@ -77,25 +79,23 @@
           </v-list-item>
           <v-divider></v-divider>
         </div>
-      </div>
-      <div v-else>
-        <v-list-item>
-          <template>
-            <v-list-item-content>
-              <v-list-item-title>Not found tasks...</v-list-item-title>
-            </v-list-item-content>
-          </template>
+      </template>
+      <template v-else>
+        <v-list-item class="px-2">
+          <v-list-item-content>
+            <v-list-item-title>Not found tasks...</v-list-item-title>
+          </v-list-item-content>
         </v-list-item>
-      </div>
+      </template>
     </v-list>
     <!-- end::DONE LIST -->
 
     <!-- start::PLAN LIST -->
-    <v-list dense class="px-2 mb-1">
+    <v-list dense class="">
       <div class="d-flex justify-space-between px-2">
         <v-subheader>PLAN</v-subheader>
         <v-subheader>
-          <v-btn class="ma-2" outlined x-small fab dark color="indigo" @click="addUpdatePlanBlockers('plan')">
+          <v-btn class="" outlined x-small fab dark color="indigo" @click="addUpdatePlanBlockers('plan')">
             <v-icon dark>
               mdi-plus
             </v-icon>
@@ -104,12 +104,12 @@
       </div>
 
       <template v-if="item.plans.length">
-        <div v-for="(item, i) in item.plans" :key="i">
-          <v-list-item>
-            <div class="flex-grow-1 d-flex align-center box_content" v-html="item.compiled"></div>
+        <div v-for="(item, i) in item.plans" :key="i" class="px-2">
+          <v-list-item class="px-2">
+            <div class="d-flex flex-grow-1 align-center box_content" v-html="item.compiled"></div>
 
-            <v-list-item-action class="ma-0">
-              <v-btn class="mx-2" fab text dark x-small color="indigo" @click="addUpdatePlanBlockers('plan', item)">
+            <v-list-item-action class="my-1">
+              <v-btn class="" fab text dark x-small color="indigo" @click="addUpdatePlanBlockers('plan', item)">
                 <v-icon dark>
                   mdi-pencil
                 </v-icon>
@@ -123,32 +123,32 @@
 
       <v-list-item v-else>
         <v-list-item-content>
-          <v-list-item-title>Not found plans...</v-list-item-title>
+          <v-list-item-title class="indigo--text">(set your plan for tomorrow)</v-list-item-title>
         </v-list-item-content>
       </v-list-item>
     </v-list>
     <!-- end::PLAN LIST -->
 
     <!-- start::BLOCKER LIST -->
-    <v-list dense class="px-2 mb-1">
-      <div class="d-flex justify-space-between px-2">
+    <v-list dense class="px-2">
+      <div class="d-flex justify-space-between">
         <v-subheader>BLOCKER</v-subheader>
         <v-subheader>
-          <v-btn class="ma-2" outlined x-small fab dark color="indigo" @click="addUpdatePlanBlockers('blockers')">
+          <v-btn class="" outlined x-small fab dark color="indigo" @click="addUpdatePlanBlockers('blockers')">
             <v-icon dark>
               mdi-plus
             </v-icon>
-          </v-btn></v-subheader
-        >
+          </v-btn>
+        </v-subheader>
       </div>
 
       <template v-if="item.blockers.length">
-        <div v-for="(item, i) in item.blockers" :key="i">
-          <v-list-item>
+        <div v-for="(item, i) in item.blockers" :key="i" class="px-2">
+          <v-list-item class="px-0">
             <div class="flex-grow-1 d-flex align-center box_content" v-html="item.compiled"></div>
 
-            <v-list-item-action class="ma-0">
-              <v-btn class="mx-2" fab text dark x-small color="indigo" @click="addUpdatePlanBlockers('blockers', item)">
+            <v-list-item-action class="my-1">
+              <v-btn class="" fab text dark x-small color="indigo" @click="addUpdatePlanBlockers('blockers', item)">
                 <v-icon dark>
                   mdi-pencil
                 </v-icon>
@@ -159,9 +159,9 @@
         </div>
       </template>
 
-      <v-list-item v-else>
+      <v-list-item v-else class="px-2">
         <v-list-item-content>
-          <v-list-item-title>Not found blockers...</v-list-item-title>
+          <v-list-item-title class="indigo--text">(add your blocker description if exists)</v-list-item-title>
         </v-list-item-content>
       </v-list-item>
     </v-list>
@@ -226,9 +226,17 @@ export default {
 };
 </script>
 
-<style lang="css">
+<style>
+.v-picker__body {
+  width: 100% !important;
+}
 .box_content * {
   margin: 0 !important;
-  /* padding: 0; */
+}
+@media only screen and (max-width: 375px) {
+  .date span,
+  .workday span {
+    font-size: 13px !important;
+  }
 }
 </style>

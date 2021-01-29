@@ -1,5 +1,5 @@
 <template>
-  <div @click="selectItem(item)">
+  <div @click="selectItem(item)" class="dailyBox">
     <!-- :prepend-icon="dily.action" -->
     <v-list-group prepend-icon="mdi-calendar-check">
       <template v-slot:activator>
@@ -31,5 +31,8 @@ export default {
   },
 };
 </script>
-
-<style></style>
+<style>
+.dailyBox {
+  box-shadow: 0px 0px 3px 1px #00000017;
+}
+</style>
