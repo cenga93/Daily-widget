@@ -1,11 +1,11 @@
 <template>
   <v-card>
     <!-- CARD TOP -- IMAGES -->
-    <v-img height="160px" src="Background.png">
+    <v-img height="150px" src="header_Card.jpg">
       <v-app-bar flat color="rgba(0, 0, 0, 0)">
         <v-toolbar-title class="title white--text d-flex date">
           <v-icon color="white" class="mr-1">
-            mdi-calendar
+            mdi-calendar-check
           </v-icon>
           <span>
             {{ item.date }}
@@ -44,18 +44,22 @@
       </v-card-title>
     </v-img>
 
-    <!-- start::DONE LIST  ******************************************************** TREBA DA SE RESI -->
-    <v-list dense class="px-2 mb-1">
+    <!-- start::DONE LIST  -->
+    <v-list dense class="mt-4 px-2 mb-1">
+      <div class="justify-end d-flex px-2 mb-4">
+        <SettingsMenu :id="item.id" />
+      </div>
       <div class="d-flex justify-space-between">
         <v-subheader>DONE</v-subheader>
         <v-subheader>
-          <v-btn class="" outlined x-small fab dark color="indigo" @click="addWork()">
+          <v-btn class="" x-small fab dark color="indigo" @click="addWork">
             <v-icon dark>
               mdi-plus
             </v-icon>
           </v-btn>
         </v-subheader>
       </div>
+
       <template v-if="item.works.length">
         <div v-for="(item, i) in item.works" :key="i">
           <v-list-item class="px-2">
@@ -65,15 +69,11 @@
               </v-list-item-action>
 
               <v-list-item-content>
-                <v-list-item-title>{{ item.title }}</v-list-item-title>
+                <v-list-item-title>{{ item.description }}</v-list-item-title>
               </v-list-item-content>
 
               <v-list-item-action class="my-1">
-                <v-btn fab text dark x-small color="indigo">
-                  <v-icon dark>
-                    mdi-dots-vertical
-                  </v-icon>
-                </v-btn>
+                <WorkMenu :workItem="item" />
               </v-list-item-action>
             </template>
           </v-list-item>
@@ -91,11 +91,11 @@
     <!-- end::DONE LIST -->
 
     <!-- start::PLAN LIST -->
-    <v-list dense class="">
-      <div class="d-flex justify-space-between px-2">
+    <v-list dense class="px-2">
+      <div class="d-flex justify-space-between">
         <v-subheader>PLAN</v-subheader>
         <v-subheader>
-          <v-btn class="" outlined x-small fab dark color="indigo" @click="addUpdatePlanBlockers('plan')">
+          <v-btn class="" x-small fab dark color="indigo" @click="addUpdatePlanBlockers('plan')">
             <v-icon dark>
               mdi-plus
             </v-icon>
@@ -104,18 +104,18 @@
       </div>
 
       <template v-if="item.plans.length">
-        <div v-for="(item, i) in item.plans" :key="i" class="px-2">
-          <v-list-item class="px-2">
-            <div class="d-flex flex-grow-1 align-center box_content" v-html="item.compiled"></div>
+        <div v-for="(item, i) in item.plans" :key="i">
+          <div class="d-flex justify-space-between align-center">
+            <div class="box_content px-2" v-html="item.compiled"></div>
 
-            <v-list-item-action class="my-1">
-              <v-btn class="" fab text dark x-small color="indigo" @click="addUpdatePlanBlockers('plan', item)">
+            <v-subheader>
+              <v-btn class="" outlined x-small fab dark color="indigo" @click="addUpdatePlanBlockers('plan', item)">
                 <v-icon dark>
                   mdi-pencil
                 </v-icon>
               </v-btn>
-            </v-list-item-action>
-          </v-list-item>
+            </v-subheader>
+          </div>
 
           <v-divider></v-divider>
         </div>
@@ -134,8 +134,8 @@
       <div class="d-flex justify-space-between">
         <v-subheader>BLOCKER</v-subheader>
         <v-subheader>
-          <v-btn class="" outlined x-small fab dark color="indigo" @click="addUpdatePlanBlockers('blockers')">
-            <v-icon dark>
+          <v-btn x-small fab dark color="indigo" @click="addUpdatePlanBlockers('blockers')">
+            <v-icon>
               mdi-plus
             </v-icon>
           </v-btn>
@@ -143,18 +143,19 @@
       </div>
 
       <template v-if="item.blockers.length">
-        <div v-for="(item, i) in item.blockers" :key="i" class="px-2">
-          <v-list-item class="px-0">
-            <div class="flex-grow-1 d-flex align-center box_content" v-html="item.compiled"></div>
+        <div v-for="(item, i) in item.blockers" :key="i">
+          <div class="d-flex justify-space-between align-center">
+            <div class="px-2 box_content" v-html="item.compiled"></div>
 
-            <v-list-item-action class="my-1">
-              <v-btn class="" fab text dark x-small color="indigo" @click="addUpdatePlanBlockers('blockers', item)">
+            <v-subheader>
+              <v-btn class="" outlined x-small fab dark color="indigo" @click="addUpdatePlanBlockers('blockers', item)">
                 <v-icon dark>
                   mdi-pencil
                 </v-icon>
               </v-btn>
-            </v-list-item-action>
-          </v-list-item>
+            </v-subheader>
+          </div>
+
           <v-divider></v-divider>
         </div>
       </template>
@@ -170,8 +171,10 @@
 </template>
 
 <script>
-// import marked from 'marked';
+import WorkMenu from '../List/Menu/WorkMenu';
+import SettingsMenu from '../List/Menu/SettingsMenu';
 export default {
+  components: { WorkMenu, SettingsMenu },
   props: ['item'],
   data() {
     return {
@@ -194,22 +197,6 @@ export default {
       this.$store.state.dialogs.works = true;
     },
 
-    // ADD
-    // addPlanBlocker(sel) {
-    //   this.$store.state.planBlockData = {
-    //     item: {},
-    //     isEdit: false,
-    //   };
-    // },
-
-    // UPDATE
-    // updatePlanBlocker(sel, item) {
-    //   this.$store.state.planBlockData = {
-    //     item: item,
-    //     isEdit: true,
-    //   };
-    // },
-
     addUpdatePlanBlockers(sel, item) {
       this.$store.state.selPlanBlocker = sel;
       this.$store.state.dialogs.plan_blocker = true;
@@ -219,7 +206,10 @@ export default {
         this.$store.state.planBlockData = { item, isEdit: true };
       } else {
         // ADD PLAN / BLOCKERS
-        this.$store.state.planBlockData = { item: {}, isEdit: false };
+        this.$store.state.planBlockData = {
+          item: {},
+          isEdit: false,
+        };
       }
     },
   },
@@ -233,6 +223,7 @@ export default {
 .box_content * {
   margin: 0 !important;
 }
+
 @media only screen and (max-width: 375px) {
   .date span,
   .workday span {

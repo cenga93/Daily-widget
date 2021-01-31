@@ -10,18 +10,24 @@ export default new Vuex.Store({
       { title: 'About', icon: 'mdi-information', to: '/about' },
     ],
     daily: [],
-    // ------------------------------
+
     dialogs: {
       daily: false,
-      // -------------------
       works: false,
       plan_blocker: false,
       add_workday: false,
       add_time: false,
+      update_work: false,
+      details: false,
     },
     workday: ['Radni dan', 'Vikend', 'Praznik', 'Bolovanje'],
     selPlanBlocker: null,
     planBlockData: {},
+    selWork: {
+      id: null,
+      isEdit: false,
+      data: null,
+    },
     // isEdit: {},
     // dailyID: '',
     itemSelected: {},
@@ -48,9 +54,28 @@ export default new Vuex.Store({
       state.daily.push(newDaily.obj);
     },
 
+    deleteDaily(state, payload) {
+      state.daily = state.daily.filter((daily) => daily.id != payload);
+    },
+
     addWork(state, payload) {
       let daily = state.daily.filter((daily) => daily.id == state.itemSelected.id)[0];
       daily.works.push(payload);
+    },
+
+    updateWork(state, payload) {
+      let daily = state.daily.filter((daily) => daily.id == state.itemSelected.id)[0];
+
+      let work = daily.works.filter((work) => work.workID == payload.id)[0];
+
+      work.details = payload.payload;
+    },
+
+    updateWorkDetais(state, payload) {
+      let daily = state.daily.filter((daily) => daily.id == state.itemSelected.id)[0];
+      let work = daily.works.filter((work) => work.workID == payload.id)[0];
+
+      work.details = payload.payload.data;
     },
 
     itemSelected(state, payload) {
@@ -87,8 +112,8 @@ export default new Vuex.Store({
           selectedPlanBlock.compiled = compiled;
           state.selPlanBlocker = null;
           break;
-        // update blockers
 
+        // update blockers
         case 'blockers':
           selectedPlanBlock = daily.blockers.filter((plan) => plan.id == id)[0];
 
@@ -210,6 +235,18 @@ export default new Vuex.Store({
         text: 'Success add time',
         color: 'success',
       });
+    },
+
+    updateWork({ commit }, payload) {
+      commit('updateWork', payload);
+    },
+
+    updateWorkDetais({ commit }, payload) {
+      commit('updateWorkDetais', payload);
+    },
+
+    deleteDaily({ commit }, payload) {
+      commit('deleteDaily', payload);
     },
   },
   modules: {},

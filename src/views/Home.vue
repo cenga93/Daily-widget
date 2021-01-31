@@ -25,6 +25,12 @@
 
     <!-- dialog ADD TIME [component] -->
     <AddTime v-if="$store.state.dialogs.add_time" @close="$store.state.dialogs.add_time = false" />
+
+    <!-- dialog UPDATE WORK [component] -->
+    <UpdateWork v-if="$store.state.dialogs.update_work" @close="$store.state.dialogs.update_work = false" />
+
+    <!-- dialog DETAILS [component] -->
+    <Details v-if="$store.state.dialogs.details" @close="$store.state.dialogs.details = false" />
   </div>
 </template>
 
@@ -37,9 +43,11 @@ import NotFoundDaily from '@/components/List/NotFoundDaily';
 import AddWorkday from '../components/List/Dialogs/AddWorkday';
 import AddTime from '../components/List/Dialogs/AddTime';
 import AddWork from '../components/List/Dialogs/AddWork';
+import UpdateWork from '../components/List/Dialogs/updateWork';
+import Details from '../components/List/Dialogs/Details';
 
 export default {
-  components: { ItemsList, AddDaily, ToolBar, NotFoundDaily, AddPlanBlocker, AddWorkday, AddTime, AddWork },
+  components: { ItemsList, AddDaily, ToolBar, NotFoundDaily, AddPlanBlocker, AddWorkday, AddTime, AddWork, UpdateWork, Details },
 };
 </script>
 

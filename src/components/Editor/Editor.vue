@@ -22,7 +22,6 @@
       </v-row>
 
       <!-- EDIT PLAN/BLOCKERS -->
-
       <v-form ref="form" lazy-validation class="form" v-if="$store.state.planBlockData.isEdit">
         <v-textarea v-model="editInput" filled auto-grow label="Description" :rules="rules" rows="3" shaped>
           <template v-slot:label @input="update" :value="editInput">

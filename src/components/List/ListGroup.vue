@@ -1,7 +1,7 @@
 <template>
-  <div @click="selectItem(item)" class="dailyBox">
+  <div class="dailyBox">
     <!-- :prepend-icon="dily.action" -->
-    <v-list-group prepend-icon="mdi-calendar-check">
+    <v-list-group prepend-icon="mdi-calendar-check" @click="selectItem(item)">
       <template v-slot:activator>
         <v-list-item-content>
           <v-list-item-title v-text="item.date"></v-list-item-title>

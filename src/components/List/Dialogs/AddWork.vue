@@ -13,17 +13,13 @@
           <v-col cols="12" sm="12" md="5">
             <v-select
               v-if="projects"
-              :items="projects"
-              :item-text="'name'"
-              :item-value="'name'"
-              v-model="payload.selectedProject"
-              label="Select projects"
               :rules="rules.projects"
+              label="Select project"
+              :items="projects"
+              :item-text="(item) => `${item.name} - ${item.shortCode}`"
+              v-model="payload.selectedProject"
             >
             </v-select>
-
-            <!-- <v-select :items="projects" item-te v-model="projects" name="project" item-text="name" label="Select a category" /> -->
-            <!-- <v-select :items="projects.name" v-model="project" label="Project"></v-select> -->
           </v-col>
 
           <v-col cols="12" sm="12" md="5">
@@ -69,9 +65,8 @@ export default {
         selectedTask: '',
         selectedHours: '',
         description: '',
-      },
-      mojaF() {
-        return;
+        details: null,
+        done: false,
       },
       rules: {
         hours: [
@@ -82,7 +77,7 @@ export default {
         description: [
           (v) => !!v || 'description is required',
           (v) => (v && v.length >= 5) || 'Min characters is 5',
-          (v) => (v && v.length <= 50) || 'Max characters is 20',
+          (v) => (v && v.length <= 40) || 'Max characters is 40',
         ],
         projects: [(v) => !!v || 'project is required'],
         tasks: [(v) => !!v || 'task is required'],
