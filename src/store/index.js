@@ -63,6 +63,11 @@ export default new Vuex.Store({
       daily.works.push(payload);
     },
 
+    deleteWork(state, payload) {
+      let daily = state.daily.filter((daily) => daily.id == state.itemSelected.id)[0];
+      daily.works = daily.works.filter((work) => work.workID != payload);
+    },
+
     updateWork(state, payload) {
       let daily = state.daily.filter((daily) => daily.id == state.itemSelected.id)[0];
 
@@ -247,6 +252,9 @@ export default new Vuex.Store({
 
     deleteDaily({ commit }, payload) {
       commit('deleteDaily', payload);
+    },
+    deleteWork({ commit }, payload) {
+      commit('deleteWork', payload);
     },
   },
   modules: {},

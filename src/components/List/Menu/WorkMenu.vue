@@ -43,7 +43,11 @@ export default {
       {
         title: 'Delete work details',
         icon: 'mdi-delete',
-        click() {},
+        click() {
+          if (confirm('do you want to delete?')) {
+            this.$store.dispatch('deleteWork', this.workItem.workID);
+          }
+        },
       },
     ],
   }),

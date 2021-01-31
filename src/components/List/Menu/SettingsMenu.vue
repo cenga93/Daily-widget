@@ -27,7 +27,6 @@ export default {
         title: 'Preview daily',
         icon: 'mdi-clipboard-check-multiple-outline',
         click() {
-          console.log('detalji su u pitanju');
           this.$store.state.dialogs.details = true;
         },
       },

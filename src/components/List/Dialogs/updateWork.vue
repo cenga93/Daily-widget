@@ -3,13 +3,10 @@
     <!-- EDIT -->
     <v-form ref="form" lazy-validation class="form" v-if="$store.state.selWork.isEdit">
       <div class="text--end pa-4 ">
-        OVO JE EDIT
+        EDIT
       </div>
       <v-divider></v-divider>
-
       <div class="pa-4 pt-2">
-        <!-- <v-text-field label="Description" required></v-text-field> -->
-
         <template v-if="$store.state.selWork.data != null">
           <v-row>
             <v-col cols="12">
