@@ -32,6 +32,18 @@ export default {
           this.$store.state.selWork = { id: this.workItem.workID, isEdit: false, data: null };
         },
       },
+
+      {
+        title: 'Edit work',
+        icon: 'mdi-pencil',
+        click() {
+          this.$store.state.dialogs.works = true;
+          this.$store.state.work = {
+            isEdit: true,
+            data: this.workItem,
+          };
+        },
+      },
       {
         title: 'Edit work info',
         icon: 'mdi-page-next-outline',

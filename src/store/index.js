@@ -28,8 +28,10 @@ export default new Vuex.Store({
       isEdit: false,
       data: null,
     },
-    // isEdit: {},
-    // dailyID: '',
+    work: {
+      isEdit: false,
+      data: null,
+    },
     itemSelected: {},
     drawer: null,
 
@@ -61,6 +63,17 @@ export default new Vuex.Store({
     addWork(state, payload) {
       let daily = state.daily.filter((daily) => daily.id == state.itemSelected.id)[0];
       daily.works.push(payload);
+    },
+
+    updateWorkInfo(state, payload) {
+      let daily = state.daily.filter((daily) => daily.id == state.itemSelected.id)[0];
+      let work = daily.works.filter((work) => work.workID == payload.workID)[0];
+
+      work.selectedProject = payload.selectedProject;
+      work.selectedTask = payload.selectedTask;
+      work.selectedHours = payload.selectedHours;
+      work.description = payload.description;
+      work.done = payload.done;
     },
 
     deleteWork(state, payload) {
@@ -244,17 +257,42 @@ export default new Vuex.Store({
 
     updateWork({ commit }, payload) {
       commit('updateWork', payload);
+      commit('showSnackBar', {
+        text: 'Success update work',
+        color: 'success',
+      });
     },
 
     updateWorkDetais({ commit }, payload) {
       commit('updateWorkDetais', payload);
+      commit('showSnackBar', {
+        text: 'Success update work details',
+        color: 'success',
+      });
     },
 
     deleteDaily({ commit }, payload) {
       commit('deleteDaily', payload);
+      commit('showSnackBar', {
+        text: 'Success delete daily',
+        color: 'red',
+      });
     },
+
     deleteWork({ commit }, payload) {
       commit('deleteWork', payload);
+      commit('showSnackBar', {
+        text: 'Success delete work',
+        color: 'red',
+      });
+    },
+
+    updateWorkInfo({ commit }, payload) {
+      commit('updateWorkInfo', payload);
+      commit('showSnackBar', {
+        text: 'Success update work info',
+        color: 'success',
+      });
     },
   },
   modules: {},

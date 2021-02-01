@@ -65,7 +65,7 @@
           <v-list-item class="px-2">
             <template>
               <v-list-item-action class="my-1">
-                <v-checkbox :input-value="item.done"></v-checkbox>
+                <v-checkbox :input-value="item.done" disabled></v-checkbox>
               </v-list-item-action>
 
               <v-list-item-content>
@@ -80,6 +80,7 @@
           <v-divider></v-divider>
         </div>
       </template>
+
       <template v-else>
         <v-list-item class="px-2">
           <v-list-item-content>
@@ -179,22 +180,13 @@ export default {
   data() {
     return {
       input: '',
-      // selDailyID: this.item.id,
     };
   },
-
-  // computed: {
-  //   compiledMarkdown: function() {
-  //     this.item.plans.map((el) => {
-  //       console.log(el.markdown);
-  //       // return marked(el.markdown, { sanitize: true });
-  //     });
-  //   },
-  // },
 
   methods: {
     addWork(item) {
       this.$store.state.dialogs.works = true;
+      this.$store.state.work.isEdit = false;
     },
 
     addUpdatePlanBlockers(sel, item) {

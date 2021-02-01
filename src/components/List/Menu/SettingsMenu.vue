@@ -34,7 +34,9 @@ export default {
         title: 'Delete Daily',
         icon: 'mdi-delete',
         click() {
-          this.$store.dispatch('deleteDaily', this.id);
+          if (confirm('Do you want to delete curent Daily?')) {
+            this.$store.dispatch('deleteDaily', this.id);
+          }
         },
       },
     ],
