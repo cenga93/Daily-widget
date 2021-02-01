@@ -35,19 +35,30 @@
 </template>
 
 <script>
-import ItemsList from '@/components/List/ItemsList';
-import AddDaily from '@/components/List/Dialogs/AddDaily';
-import AddPlanBlocker from '@/components/List/Dialogs/AddPlan-Blocker';
-import ToolBar from '@/components/List/ToolBar';
-import NotFoundDaily from '@/components/List/NotFoundDaily';
-import AddWorkday from '../components/List/Dialogs/AddWorkday';
-import AddTime from '../components/List/Dialogs/AddTime';
-import AddWork from '../components/List/Dialogs/AddWork';
-import UpdateWork from '../components/List/Dialogs/updateWork';
-import Details from '../components/List/Dialogs/Details';
+import ItemsList      from  '@/components/List/ItemsList'; 
+import AddDaily       from  '@/components/List/Dialogs/AddDaily';
+import AddPlanBlocker from  '@/components/List/Dialogs/AddPlan-Blocker';
+import ToolBar        from  '@/components/List/ToolBar';
+import NotFoundDaily  from  '@/components/List/NotFoundDaily';
+import AddWorkday     from  '@/components/List/Dialogs/AddWorkday';
+import AddTime        from  '@/components/List/Dialogs/AddTime';
+import AddWork        from  '@/components/List/Dialogs/AddWork';
+import UpdateWork     from  '@/components/List/Dialogs/updateWork';
+import Details        from  '@/components/List/Dialogs/Details';
 
 export default {
-  components: { ItemsList, AddDaily, ToolBar, NotFoundDaily, AddPlanBlocker, AddWorkday, AddTime, AddWork, UpdateWork, Details },
+  components: { 
+    AddPlanBlocker,
+    NotFoundDaily,
+    UpdateWork,
+    AddWorkday,
+    ItemsList,
+    AddDaily,
+    ToolBar,
+    AddWork,
+    AddTime,
+    Details
+  },
 };
 </script>
 

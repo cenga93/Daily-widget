@@ -16,7 +16,7 @@
               <v-timeline :reverse="reverse" dense>
                 <v-timeline-item v-for="(item, i) in data.works" :key="i" class="mb-2">
                   <v-card class="elevation-2">
-                    <v-row>
+                    <v-row> 
                       <v-col cols="12" md="6" sm="12">
                         <v-card-title class="headline">Description: {{ item.description }} </v-card-title>
                         <v-list-item>
@@ -40,20 +40,18 @@
                         <v-card-title class="headline">Details</v-card-title>
                         <v-list-item v-if="item.details">
                           <v-list-item-content>
-                            <v-list-item-title class="py-1"
-                              >Addition description:
-                              <span class="info--text">{{ item.details.desc_long }}</span></v-list-item-title
-                            >
-                            <v-list-item-title class="py-1"
-                              >Hours description: <span class="info--text">{{ item.details.desc_hours }}</span></v-list-item-title
-                            >
-                            <v-list-item-title class="py-1"
-                              >Project description:
-                              <span class="info--text">{{ item.details.desc_project }}</span></v-list-item-title
-                            >
-                            <v-list-item-title class="py-1"
-                              >Work description: <span class="info--text">{{ item.details.desc_task }}</span></v-list-item-title
-                            >
+                            <v-list-item-title class="py-1">
+                              Addition description: <span class="info--text">{{ item.details.desc_long }}</span>
+                            </v-list-item-title>
+                            <v-list-item-title class="py-1">
+                              Hours description: <span class="info--text">{{ item.details.desc_hours }}</span>
+                            </v-list-item-title>
+                            <v-list-item-title class="py-1">
+                              Project description: <span class="info--text">{{ item.details.desc_project }}</span>
+                            </v-list-item-title>
+                            <v-list-item-title class="py-1">
+                              Work description: <span class="info--text">{{ item.details.desc_task }}</span>
+                            </v-list-item-title>
                           </v-list-item-content>
                         </v-list-item>
                         <v-list-item v-else>
@@ -69,12 +67,11 @@
         </v-list>
 
         <v-divider></v-divider>
-        <!-- DONJI DEO -->
+        <!-- BOTTOM -->
         <v-row>
           <v-col cols="12" md="6" sm="12">
             <v-list>
               <v-subheader>Plans</v-subheader>
-
               <v-list-item v-for="(item, i) in data.plans" :key="i" class="mb-2">
                 <v-list-item-content class="pa-0">
                   <v-list-item-title v-html="item.compiled"></v-list-item-title>
@@ -85,7 +82,6 @@
           <v-col cols="12" md="6" sm="12">
             <v-list>
               <v-subheader>Blockers</v-subheader>
-
               <v-list-item v-for="(item, i) in data.blockers" :key="i" class="mb-2">
                 <v-list-item-content class="pa-0">
                   <v-list-item-title v-html="item.compiled"></v-list-item-title>
@@ -95,8 +91,6 @@
           </v-col>
         </v-row>
       </v-card-text>
-
-      <div style="flex: 1 1 auto;"></div>
     </v-card>
   </v-dialog>
 </template>
@@ -109,10 +103,5 @@ export default {
       data: this.$store.state.itemSelected,
     };
   },
-  // mounted() {
-  //   console.log(this.data);
-  // },
 };
 </script>
-
-<style></style>

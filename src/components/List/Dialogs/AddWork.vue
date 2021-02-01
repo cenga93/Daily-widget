@@ -1,6 +1,7 @@
 <template>
   <v-dialog :value="true" persistent max-width="500" max-height="100">
-    <!-- EDIT -->
+
+    <!-- EDIT FORM -->
     <v-form ref="form" lazy-validation class="form" v-if="$store.state.work.isEdit">
       <div class="text--end pa-4 ">
         Edit your work
@@ -66,7 +67,7 @@
       </div>
     </v-form>
 
-    <!-- ADD -->
+    <!-- ADD FORM -->
     <v-form ref="form" lazy-validation class="form" v-else>
       <div class="text--end pa-4 ">
         Describe your work
@@ -114,6 +115,7 @@
 
 <script>
 import { v4 as uuidv4 } from 'uuid';
+
 export default {
   data() {
     return {
@@ -161,7 +163,7 @@ export default {
     };
   },
 
-  methods: {
+  methods: { 
     addWork() {
       // VALIDATION
       if (this.$refs.form.validate()) {
@@ -170,6 +172,7 @@ export default {
       }
     },
     updateWork() {
+      // VALIDATION
       if (this.$refs.form.validate()) {
         this.$store.dispatch('updateWorkInfo', this.payloadEdit);
         this.$emit('close');

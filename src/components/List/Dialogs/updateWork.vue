@@ -92,13 +92,10 @@
     <!-- ADD -->
     <v-form ref="form" lazy-validation class="form" v-else>
       <div class="text--end pa-4 ">
-        AOVO JE ADD
+        ADD
       </div>
       <v-divider></v-divider>
-
       <div class="pa-4 pt-2">
-        <!-- <v-text-field label="Description" required></v-text-field> -->
-
         <v-row>
           <v-col cols="12">
             <v-textarea
@@ -152,7 +149,7 @@ export default {
         desc_project: '',
       },
     };
-  },
+  }, 
 
   methods: {
     updateWork() {

@@ -1,6 +1,5 @@
 <template>
   <div class="dailyBox">
-    <!-- :prepend-icon="dily.action" -->
     <v-list-group prepend-icon="mdi-calendar-check" @click="selectItem(item)">
       <template v-slot:activator>
         <v-list-item-content>
@@ -10,7 +9,6 @@
 
       <!-- CARD CONTAINER [component] -->
       <CardContainer :item="item" />
-      <!-- <CardContainer :/> -->
     </v-list-group>
   </div>
 </template>
@@ -20,13 +18,10 @@ import CardContainer from '@/components/Card/CardContainer';
 
 export default {
   props: ['item'],
-  components: {
-    CardContainer,
-  },
+  components: { CardContainer },
   methods: {
     selectItem(item) {
-      // console.log(item);
-      this.$store.commit('itemSelected', item);
+      this.$store.commit('itemSelected', item); 
     },
   },
 };

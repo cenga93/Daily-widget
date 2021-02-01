@@ -132,7 +132,6 @@ export default {
           id: uuidv4(),
         };
         this.$store.dispatch('addPlanBlocker', payload);
-
         this.hideModal();
       }
     },
@@ -150,7 +149,6 @@ export default {
         } else {
           return false;
         }
-
         this.hideModal();
       }
     },

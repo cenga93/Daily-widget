@@ -31,9 +31,7 @@
         Hours:
         <span class="ml-3" v-if="!item.time">--</span>
         <span class="ml-2" v-else>{{ item.time }}</span>
-
         <v-spacer></v-spacer>
-
         <div class="d-flex">
           <v-btn color="white" fab text dark x-small @click="$store.state.dialogs.add_time = true">
             <v-icon dark>
@@ -108,7 +106,6 @@
         <div v-for="(item, i) in item.plans" :key="i">
           <div class="d-flex justify-space-between align-center">
             <div class="box_content px-2" v-html="item.compiled"></div>
-
             <v-subheader>
               <v-btn class="" outlined x-small fab dark color="indigo" @click="addUpdatePlanBlockers('plan', item)">
                 <v-icon dark>
@@ -117,7 +114,6 @@
               </v-btn>
             </v-subheader>
           </div>
-
           <v-divider></v-divider>
         </div>
       </template>
@@ -142,25 +138,21 @@
           </v-btn>
         </v-subheader>
       </div>
-
       <template v-if="item.blockers.length">
         <div v-for="(item, i) in item.blockers" :key="i">
           <div class="d-flex justify-space-between align-center">
             <div class="px-2 box_content" v-html="item.compiled"></div>
-
             <v-subheader>
-              <v-btn class="" outlined x-small fab dark color="indigo" @click="addUpdatePlanBlockers('blockers', item)">
+              <v-btn  outlined x-small fab dark color="indigo" @click="addUpdatePlanBlockers('blockers', item)">
                 <v-icon dark>
                   mdi-pencil
                 </v-icon>
               </v-btn>
             </v-subheader>
           </div>
-
           <v-divider></v-divider>
         </div>
       </template>
-
       <v-list-item v-else class="px-2">
         <v-list-item-content>
           <v-list-item-title class="indigo--text">(add your blocker description if exists)</v-list-item-title>
@@ -172,8 +164,9 @@
 </template>
 
 <script>
-import WorkMenu from '../List/Menu/WorkMenu';
-import SettingsMenu from '../List/Menu/SettingsMenu';
+import WorkMenu from '@/components/List/Menu/WorkMenu';
+import SettingsMenu from '@/components/List/Menu/SettingsMenu';
+
 export default {
   components: { WorkMenu, SettingsMenu },
   props: ['item'],
@@ -214,7 +207,7 @@ export default {
 }
 .box_content * {
   margin: 0 !important;
-}
+} 
 
 @media only screen and (max-width: 375px) {
   .date span,

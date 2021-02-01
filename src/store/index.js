@@ -5,10 +5,7 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    navItems: [
-      { title: 'Home', icon: 'mdi-home', to: '/' },
-      { title: 'About', icon: 'mdi-information', to: '/about' },
-    ],
+    navItems: [{ title: 'Home', icon: 'mdi-home', to: '/' }],
     daily: [],
 
     dialogs: {
@@ -202,7 +199,7 @@ export default new Vuex.Store({
     addDaily({ commit }, payload) {
       commit('addDaily', payload);
       commit('showSnackBar', {
-        text: 'Success add new Daily',
+        text: 'Success added new Daily',
         color: 'success',
       });
     },
@@ -210,7 +207,7 @@ export default new Vuex.Store({
     addWork({ commit }, payload) {
       commit('addWork', payload);
       commit('showSnackBar', {
-        text: 'Success add work',
+        text: 'Success added work',
         color: 'success',
       });
     },

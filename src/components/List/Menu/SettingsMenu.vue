@@ -1,7 +1,7 @@
 <template>
   <v-menu bottom left>
     <template v-slot:activator="{ on, attrs }">
-      <v-btn class="" x-small fab dark color="primary lighten-2" v-bind="attrs" v-on="on">
+      <v-btn x-small fab dark color="primary lighten-2" v-bind="attrs" v-on="on">
         <v-icon dark>
           mdi-cog-outline
         </v-icon>
@@ -24,7 +24,7 @@ export default {
   data: () => ({
     items: [
       {
-        title: 'Preview daily',
+        title: 'Preview daily', 
         icon: 'mdi-clipboard-check-multiple-outline',
         click() {
           this.$store.state.dialogs.details = true;
@@ -34,7 +34,7 @@ export default {
         title: 'Delete Daily',
         icon: 'mdi-delete',
         click() {
-          if (confirm('Do you want to delete curent Daily?')) {
+          if (confirm('Do you want to delete curent daily?')) {
             this.$store.dispatch('deleteDaily', this.id);
           }
         },

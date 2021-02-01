@@ -4,18 +4,6 @@
       <v-row>
         <v-col>
           <v-dialog ref="dialog" v-model="dataModal" :return-value.sync="date" persistent width="320">
-            <!-- <template v-slot:activator="{ on, attrs }">
-              <v-text-field 
-                :value="computedDateFormattedMomentjs"
-                clearable
-                label="Formatted with Moment.js"
-                readonly
-                v-bind="attrs"
-                v-on="on"
-                @click:clear="date = null"
-              ></v-text-field>
-            </template>
-            <v-date-picker v-model="date" @change="menu1 = false"></v-date-picker> -->
             <template v-slot:activator="{ on, attrs }">
               <v-text-field
                 :value="computedDateFormattedMomentjs"
@@ -52,19 +40,14 @@
         </v-col>
       </v-row>
     </v-form>
-    <!-- <v-row>
-          <v-col>
-            <p class="ma-0">Output:</p>
-            <div class="test" v-html="compiledMarkdown"></div>
-          </v-col>
-        </v-row> -->
   </v-dialog>
 </template>
 
 <script>
 import { v4 as uuidv4 } from 'uuid';
-import moment from 'moment';
 import { format, parseISO } from 'date-fns';
+import moment from 'moment'; 
+
 export default {
   data: () => ({
     dataModal: false,

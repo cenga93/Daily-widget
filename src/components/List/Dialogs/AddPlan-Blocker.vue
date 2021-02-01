@@ -4,8 +4,9 @@
       <div class="text--end pa-4 ">
         Describe your plan for tomorrow / blocker
       </div>
-      <v-divider></v-divider>
-      <!-- <h3></h3> -->
+      <v-divider></v-divider> 
+
+      <!-- EDITOR [component] -->
       <Editor />
     </v-form>
   </v-dialog>
@@ -13,12 +14,12 @@
 
 <script>
 import Editor from '../../Editor/Editor';
+
 export default {
-  components: {
-    Editor,
-  },
+  components: { Editor },
 };
 </script>
+
 <style scoped>
 .form {
   background: #fff;
